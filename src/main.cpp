@@ -19,7 +19,7 @@ void setup()
   delay(100);
 
   // dummyEeprom(false);
-
+  
   // delay(100000000);
 
   eepromLoader();
@@ -51,7 +51,8 @@ IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
 void loop()
 {
-  if(!SPIFFS.begin(true)){
+  if (!SPIFFS.begin(true))
+  {
     Serial.println("An Error has occurred while mounting SPIFFS");
     return;
   }
@@ -71,7 +72,7 @@ void loop()
               AsyncWebServerResponse *response = request->beginResponse(SPIFFS, "/index.html", "", false);
               request->send(response); });
   server.on("/style.css", [](AsyncWebServerRequest *request)
-            { request->send(  SPIFFS, "/style.css", "text/css"); });
+            { request->send(SPIFFS, "/style.css", "text/css"); });
   server.on("/script.js", [](AsyncWebServerRequest *request)
             { request->send(SPIFFS, "/script.js", "text/js"); });
   server.on("/submit", HTTP_GET, [](AsyncWebServerRequest *request)
@@ -90,9 +91,9 @@ void loop()
               message = " Credentials received by ESP board!!! ";
               request->send(200, "text/plain", message);
               
-              if ((strcmp(gBaseFirmwareStruct.fsUrl,       "#") != 0) &&\
-                  (strcmp(gBaseFirmwareStruct.firmwareUrl, "#") != 0) &&\
-                  (strcmp(gBaseFirmwareStruct.ssid,        "#") != 0) &&\
+              if ((strcmp(gBaseFirmwareStruct.fsUrl,       "#") != 0) ||\
+                  (strcmp(gBaseFirmwareStruct.firmwareUrl, "#") != 0) ||\
+                  (strcmp(gBaseFirmwareStruct.ssid,        "#") != 0) ||\
                   (strcmp(gBaseFirmwareStruct.pass,        "#") != 0))
               {
                 gBaseFirmwareStruct.state = true;
@@ -100,6 +101,8 @@ void loop()
                 eepromCommit(true);
               } });
   server.begin();
-  
-  while(1){}
+
+  while (1)
+  {
+  }
 }

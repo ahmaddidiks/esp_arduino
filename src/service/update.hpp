@@ -22,15 +22,15 @@ hMAtudXH/vTBH1jLuG2cenTnmCmrEbXjcKChzUyImZOMkXDiqw8cvpOp/2PV5Adg
 PnlUkiaY4IBIqDfv8NZ5YBberOgOzW6sRBc4L0na4UU+Krk2U886UAb3LujEV0ls
 YSEY1QSteDwsOoBrp+uvFRTp2InBuThs4pFsiv9kuXclVzDAGySj4dzp30d8tbQk
 CAUw7C29C79Fv1C5qfPrmAESrciIxpg0X40KPMbp1ZWVbd4=
+-----END CERTIFICATE-----
 )EOF";
 
-void firmwareUpdate(const char*ssid, const char *pass, const char *firmwareUrl, const char*fsUrl)
+void firmwareUpdate(const char *ssid, const char *pass, const char *firmwareUrl, const char *fsUrl)
 {
   // firmware URL con not be empty
   if (strcmp(firmwareUrl, "") == 0)
     ESP.restart();
 
-  
   // connect WiFi
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, pass);
@@ -39,18 +39,19 @@ void firmwareUpdate(const char*ssid, const char *pass, const char *firmwareUrl, 
   int i = 0;
   while (WiFi.status() != WL_CONNECTED)
   {
-      i++;
-      Serial.print(".");
-      if (i == 50) ESP.restart();
-      delay(500);
+    i++;
+    Serial.print(".");
+    if (i == 50)
+      ESP.restart();
+    delay(500);
   }
   Serial.println("Connected To Wifi");
-  
-  //setting up WiFi client
+
+  // setting up WiFi client
   WiFiClientSecure client;
   client.setCACert(rootCACertificate);
-  
-   // update fs if needed
+  // client.setInsecure();
+  // update fs if needed
   if (strcmp(fsUrl, "") != 0)
   {
     Serial.println("updating flash");
@@ -58,7 +59,7 @@ void firmwareUpdate(const char*ssid, const char *pass, const char *firmwareUrl, 
     t_httpUpdate_return _fs = httpUpdate.updateSpiffs(client, fsUrl, "");
     Serial.println("update flash done");
   }
-  
+
   // update firmware
   t_httpUpdate_return ret = httpUpdate.update(client, firmwareUrl);
 }
