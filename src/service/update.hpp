@@ -49,8 +49,8 @@ void firmwareUpdate(const char *ssid, const char *pass, const char *firmwareUrl,
 
   // setting up WiFi client
   WiFiClientSecure client;
-  client.setCACert(rootCACertificate);
-  // client.setInsecure();
+  // client.setCACert(rootCACertificate);
+  client.setInsecure();
   // update fs if needed
   if (strcmp(fsUrl, "") != 0)
   {
