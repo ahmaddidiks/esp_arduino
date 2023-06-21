@@ -1,6 +1,19 @@
-# base-firmware
+# GATEWAY_ESP32
+
+# Name,   Type, SubType,  Offset,   Size,  Flags
+nvs,      data, nvs,      0x9000,  0x4000
+otadata,  data, ota,      0xd000,  0x2000
+factory,  app,  factory,  ,  0x16E360
+ota_0,    app,  ota_0,    ,         0x16E360
 
 
+# Name,   Type, SubType, Offset,  Size
+phy_init, data, phy,     0xf000,  0x1000
+otadata,data,ota,  0x10000,        8K
+nvs,data,nvs,   0x12000,        56K
+at_customize,0x40,0,0x20000,0xE0000
+ota_0,app,    ota_0,   0x100000,0x170000
+ota_1,app,    ota_1,   0x270000,0x170000
 
 ## Getting started
 
@@ -15,14 +28,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/ahmaddidiks/base-firmware.git
+git remote add origin https://gitlab.com/digitels-device/gateway_esp32.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/ahmaddidiks/base-firmware/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/digitels-device/gateway_esp32/-/settings/integrations)
 
 ## Collaborate with your team
 
